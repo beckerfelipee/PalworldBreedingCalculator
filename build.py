@@ -78,8 +78,6 @@ def get_image(pal):
         no_image_src = img_sources[1][row]
         return no_image_src
 
-# ---------------------------- Web App Functions ---------------------- #
-
 
 # ---------------------------- Web App Build -------------------------- #
 
