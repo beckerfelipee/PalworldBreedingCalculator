@@ -1,8 +1,10 @@
 import pandas as pd
 import streamlit as st
+import time
 
 # Start Webpage
 st.set_page_config(layout="wide")
+
 
 # ---------------------------- Retrieve Data ------------------------------- #
 
@@ -12,10 +14,12 @@ def load_pals():
     number_of_pals = len(pals[0])
     return pals, number_of_pals
 
+
 @st.cache_data
 def load_all_combinations():
     all_combos = pd.read_csv(r'Data/AllCombos.csv', sep=';', header=None)
     return all_combos
+
 
 @st.cache_data
 def load_images_src():
@@ -23,10 +27,17 @@ def load_images_src():
     return sources
 
 
+@st.cache_data
+def load_wikis_url():
+    sources = pd.read_csv(r'Data/Wikis.csv', sep=',', header=None)
+    return sources
+
+
 # start Data
 df_pals, n_pals = load_pals()
 df_all_combos = load_all_combinations()
 img_sources = load_images_src()
+wikis_url = load_wikis_url()
 
 
 # ---------------------------- Data Functions ------------------------- #
@@ -35,9 +46,11 @@ def search_number(pal):
     number = df_pals[df_pals[0] == pal].index[0]
     return number
 
+
 def search_pal(number):
     pal = df_pals[0][number]
     return pal
+
 
 def get_pals_list():
     pals = []
@@ -45,11 +58,13 @@ def get_pals_list():
         pals.append(pal)
     return pals
 
+
 def get_children(parent1, parent2):
     column = search_number(parent1)
     row = search_number(parent2)
     children = df_all_combos[column][row]
     return children
+
 
 def get_combinations(pal):
     combinations = []
@@ -63,12 +78,8 @@ def get_combinations(pal):
                     combinations.append(parents)
     return combinations
 
-def get_image(pal):
-    # Exception
-    if pal == "Gumoss (Special)":
-        pal = "Gumoss"
 
-    # Code
+def get_image(pal):
     if pal in img_sources[0].values:
         row = img_sources[img_sources[0] == pal].index[0]
         image_src = img_sources[1][row]
@@ -77,6 +88,25 @@ def get_image(pal):
         row = img_sources[img_sources[0] == "No Image"].index[0]
         no_image_src = img_sources[1][row]
         return no_image_src
+
+
+def get_wiki(pal):
+    if pal in wikis_url[0].values:
+        row = wikis_url[wikis_url[0] == pal].index[0]
+        print(pal)
+        print(row)
+        url = wikis_url[1][row]
+        return url
+    else:
+        return False
+
+def image_with_wiki(pal, place=st):
+    href = get_wiki(pal)
+    src = get_image(pal)
+    place.markdown(f'''
+        <a href="{href}">
+            <img src="{src}" />
+        </a>''', unsafe_allow_html=True)
 
 
 # ---------------------------- Web App Build -------------------------- #
@@ -88,33 +118,35 @@ with st.container():
     c1.write("[https://github.com/beckerfelipee](https://github.com/beckerfelipee)")
     c1.link_button("Buy me a coffee!", "https://www.buymeacoffee.com/beckerfelipee")
     c2.title('Palworld Breeding :blue[Calculator]', anchor=False)
-    c3.text("")
 
-# Calculator
+# Calculator Area
 with st.container():
     st.divider()
     left, space1, center1, space2, center2, space3, center3, space4, right = st.columns([3, 1, 2, 1, 2, 1, 2, 1, 3])
     pals_list = get_pals_list()
 
+    # Tips
+    if left.button('Some tips!'):
+        st.toast('You can click on "Search by Result" to view all combinations for breeding a pal.', icon='👀')
+        time.sleep(.5)
+        st.toast('You can click on the pal image to open your wiki.', icon='🚀')
+
     # Parent 1
     center1.header("Parent 1", anchor=False)
     pal1 = center1.selectbox("---", pals_list)
-    src_pal1 = get_image(pal1)
-    center1.image(src_pal1)
+    image_with_wiki(pal1, center1)
 
     # Parent 2
     center2.header("Parent 2", anchor=False)
     pal2 = center2.selectbox("--- ---", pals_list)
-    src_pal2 = get_image(pal2)
-    center2.image(src_pal2)
+    image_with_wiki(pal2, center2)
 
     # Result
     center3.header("Result", anchor=False)
     center3.markdown("")
     pal3 = get_children(pal1, pal2)
     center3.code(pal3)
-    src_pal3 = get_image(pal3)
-    center3.image(src_pal3)
+    image_with_wiki(pal3, center3)
     st.divider()
 
 # Search by Result
@@ -125,10 +157,7 @@ with st.expander("Search by Result"):
 
     # Pal for Search
     pal4 = l.selectbox("--- --- ---", pals_list)
-    src_pal4 = get_image(pal4)
-    l.image(src_pal4)
-
-    # Generate Spaces
+    image_with_wiki(pal4, l)
 
     # get combinations
     result = get_combinations(pal4)
