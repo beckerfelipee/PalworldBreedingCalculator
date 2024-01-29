@@ -86,6 +86,7 @@ with st.container():
     c1, c2, c3 = st.columns(3)
     c1.text("Game Version: 0.1.3.0")
     c1.write("[https://github.com/beckerfelipee](https://github.com/beckerfelipee)")
+    c1.link_button("Buy me a coffee!", "https://www.buymeacoffee.com/beckerfelipee")
     c2.title('Palworld Breeding :blue[Calculator]', anchor=False)
     c3.text("")
 
@@ -135,7 +136,3 @@ with st.expander("Search by Result"):
         couple = f"{c[0]} + {c[1]}"
         r_list[index].code(couple)
         index = (index + 1) % len(r_list)
-
-
-
-
