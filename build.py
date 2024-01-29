@@ -128,11 +128,40 @@ with st.expander("Search by Result"):
     src_pal4 = get_image(pal4)
     l.image(src_pal4)
 
-    # get and return combinations
+    # Generate Spaces
+
+    # get combinations
     result = get_combinations(pal4)
-    r_list = [r1, r2, r3, r4]
-    index = 0
+
+    # Create Filter
+    possible_pals = []
     for c in result:
-        couple = f"{c[0]} + {c[1]}"
-        r_list[index].code(couple)
-        index = (index + 1) % len(r_list)
+        if not c[0] in possible_pals:
+            possible_pals.append(c[0])
+        if not c[1] in possible_pals:
+            possible_pals.append(c[1])
+
+    filter_option = r1.selectbox("Filter by parent", possible_pals, index=None)
+
+    # Generate Spaces
+    r1.subheader("")
+    divider_columns = [s2, r2, s3, r3, s4, r4]
+    for c in divider_columns:
+        c.title("")
+        c.title("")
+        c.title("")
+
+    with st.container():
+        # Return combinations
+        r_list = [r1, r2, r3, r4]
+        index = 0
+        for c in result:
+            if filter_option:
+                if filter_option in c:
+                    couple = f"{c[0]} + {c[1]}"
+                    r_list[index].code(couple)
+                    index = (index + 1) % len(r_list)
+            else:
+                couple = f"{c[0]} + {c[1]}"
+                r_list[index].code(couple)
+                index = (index + 1) % len(r_list)
