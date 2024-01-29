@@ -1,4 +1,4 @@
 # PalworldBreedingCalculator
 Breeding in Palworld opens up a world of possibilities, allowing you to hatch formidable Pals for both battle and base activities.
 
-WebApp: https://breeding-calculator-palworld.streamlit.app/
+Web App Url: https://breeding-calculator-palworld.streamlit.app/
