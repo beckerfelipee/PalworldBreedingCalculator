@@ -81,11 +81,6 @@ def get_image(pal):
 
 # ---------------------------- Web App Build -------------------------- #
 
-# Variable Declaration
-pals_list = get_pals_list()
-
-# Structure
-
 # Header
 with st.container():
     c1, c2, c3 = st.columns(3)
@@ -98,6 +93,7 @@ with st.container():
 with st.container():
     st.divider()
     left, space1, center1, space2, center2, space3, center3, space4, right = st.columns([3, 1, 2, 1, 2, 1, 2, 1, 3])
+    pals_list = get_pals_list()
 
     # Parent 1
     center1.header("Parent 1", anchor=False)
