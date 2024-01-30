@@ -108,6 +108,20 @@ def image_with_wiki(pal, place=st):
 
 # ---------------------------- Web App Build -------------------------- #
 
+# Hide Github Icon
+st.markdown(
+    """
+    <style>
+    .css-1jc7ptx, .e1ewe7hr3, .viewerBadge_container__1QSob,
+    .styles_viewerBadge__1yB5_, .viewerBadge_link__1S137,
+    .viewerBadge_text__1JaDK {
+        display: none;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # Header
 with st.container():
     c1, c2, c3 = st.columns(3)
@@ -131,12 +145,12 @@ with st.container():
 
     # Parent 1
     center1.header("Parent 1", anchor=False)
-    pal1 = center1.selectbox("---", pals_list)
+    pal1 = center1.selectbox("pal1", pals_list, label_visibility="hidden")
     image_with_wiki(pal1, center1)
 
     # Parent 2
     center2.header("Parent 2", anchor=False)
-    pal2 = center2.selectbox("--- ---", pals_list)
+    pal2 = center2.selectbox("pal2", pals_list, label_visibility="hidden")
     image_with_wiki(pal2, center2)
 
     # Result
@@ -154,7 +168,7 @@ with st.expander("Search for Pal"):
     l, s1, r1, s2, r2, s3, r3, s4, r4 = st.columns([3, 1, 3, 1, 3, 1, 3, 1, 3])
 
     # Pal for Search
-    pal4 = l.selectbox("--- --- ---", pals_list)
+    pal4 = l.selectbox("pal4", pals_list, label_visibility="hidden")
 
     # get combinations
     result = get_combinations(pal4)
@@ -172,6 +186,8 @@ with st.expander("Search for Pal"):
     # Pal Image
     image_with_wiki(pal4, l)
     l.divider()
+
+    # pal4_index = int(search_number(pal4))
 
     with st.container():
         # Return combinations
