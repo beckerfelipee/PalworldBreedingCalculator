@@ -1,6 +1,5 @@
 import pandas as pd
 import streamlit as st
-import time
 
 # Start Webpage
 st.set_page_config(layout="wide")
@@ -93,8 +92,6 @@ def get_image(pal):
 def get_wiki(pal):
     if pal in wikis_url[0].values:
         row = wikis_url[wikis_url[0] == pal].index[0]
-        print(pal)
-        print(row)
         url = wikis_url[1][row]
         return url
     else:
@@ -120,6 +117,7 @@ with st.container():
     c2.title('Palworld Breeding :blue[Calculator]', anchor=False)
 
 # Calculator Area
+
 with st.container():
     st.divider()
     left, space1, center1, space2, center2, space3, center3, space4, right = st.columns([3, 1, 2, 1, 2, 1, 2, 1, 3])
@@ -127,9 +125,9 @@ with st.container():
 
     # Tips
     if left.button('Some tips!'):
-        st.toast('You can click on "Search by Result" to view all combinations for breeding a pal.', icon='👀')
-        time.sleep(.5)
+        st.toast('You can click on "Search for Pal" to view all combinations for breeding a pal.', icon='👀')
         st.toast('You can click on the pal image to open your wiki.', icon='🚀')
+        st.toast('Switch light and dark themes by clicking Settings in the top right corner.', icon='🌃')
 
     # Parent 1
     center1.header("Parent 1", anchor=False)
@@ -150,14 +148,13 @@ with st.container():
     st.divider()
 
 # Search by Result
-with st.expander("Search by Result"):
+with st.expander("Search for Pal"):
     st.divider()
-    st.markdown("<h2 style='text-align: left'>Search by Result</h2>", unsafe_allow_html=True)
+    st.header("Search for Pal", anchor=False)
     l, s1, r1, s2, r2, s3, r3, s4, r4 = st.columns([3, 1, 3, 1, 3, 1, 3, 1, 3])
 
     # Pal for Search
     pal4 = l.selectbox("--- --- ---", pals_list)
-    image_with_wiki(pal4, l)
 
     # get combinations
     result = get_combinations(pal4)
@@ -170,15 +167,10 @@ with st.expander("Search by Result"):
         if not c[1] in possible_pals:
             possible_pals.append(c[1])
 
-    filter_option = r1.selectbox("Filter by parent", possible_pals, index=None)
+    filter_option = l.selectbox("Filter by parent", possible_pals, index=None)
 
-    # Generate Spaces
-    r1.subheader("")
-    divider_columns = [s2, r2, s3, r3, s4, r4]
-    for c in divider_columns:
-        c.title("")
-        c.title("")
-        c.title("")
+    # Pal Image
+    image_with_wiki(pal4, l)
 
     with st.container():
         # Return combinations
