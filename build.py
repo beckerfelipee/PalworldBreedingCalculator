@@ -108,14 +108,6 @@ def image_with_wiki(pal, place=st):
 
 # ---------------------------- Web App Build -------------------------- #
 
-# Hide Github Icon
-hide_github_icon = """
-#GithubIcon {
-  visibility: hidden;
-}
-"""
-st.markdown(hide_github_icon, unsafe_allow_html=True)
-
 # Header
 with st.container():
     c1, c2, c3 = st.columns(3)
