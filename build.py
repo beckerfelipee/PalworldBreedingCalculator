@@ -126,7 +126,7 @@ with st.container():
     # Tips
     if left.button('Some tips!'):
         st.toast('You can click on "Search for Pal" to view all combinations for breeding a pal.', icon='👀')
-        st.toast('You can click on the pal image to open your wiki.', icon='🚀')
+        st.toast('You can click on the pal image to open their wiki.', icon='🚀')
         st.toast('Switch light and dark themes by clicking Settings in the top right corner.', icon='🌃')
 
     # Parent 1
