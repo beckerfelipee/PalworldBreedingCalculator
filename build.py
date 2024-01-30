@@ -171,6 +171,7 @@ with st.expander("Search for Pal"):
 
     # Pal Image
     image_with_wiki(pal4, l)
+    l.divider()
 
     with st.container():
         # Return combinations
