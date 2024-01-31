@@ -149,7 +149,6 @@ with st.container():
 
 # Search by Result
 with st.expander("Search for Pal"):
-    st.divider()
     st.header("Search for Pal", anchor=False)
     l, s1, r1, s2, r2, s3, r3, s4, r4 = st.columns([3, 1, 3, 1, 3, 1, 3, 1, 3])
 
