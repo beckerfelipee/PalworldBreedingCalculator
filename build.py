@@ -111,7 +111,7 @@ def image_with_wiki(pal, place=st):
 # Header
 with st.container():
     c1, c2, c3 = st.columns(3)
-    c1.text("Game Version: 0.1.3.0")
+    c1.text("Game Version: 0.1.4.0")
     c1.write("[https://github.com/beckerfelipee](https://github.com/beckerfelipee)")
     c1.link_button("Buy me a coffee!", "https://www.buymeacoffee.com/beckerfelipee")
     c2.title('Palworld Breeding :blue[Calculator]', anchor=False)
