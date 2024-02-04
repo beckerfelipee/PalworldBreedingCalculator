@@ -2,7 +2,7 @@ import pandas as pd
 import streamlit as st
 
 # Start Webpage
-st.set_page_config(page_title="Breeding Calculator", page_icon="🐣", layout="wide")
+st.set_page_config(page_title="Palworld Breeding Calculator", page_icon="🐣", layout="wide")
 
 
 # ---------------------------- Retrieve Data ------------------------------- #
