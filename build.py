@@ -97,12 +97,12 @@ def get_wiki(pal):
     else:
         return False
 
-def image_with_wiki(pal, place=st):
+def image_with_wiki(pal, place=st , width=100):
     href = get_wiki(pal)
     src = get_image(pal)
     place.markdown(f'''
         <a href="{href}">
-            <img src="{src}" />
+            <img src="{src}" width="{width}" height="{width}" style="margin-left: 10px;" />
         </a>''', unsafe_allow_html=True)
 
 
@@ -179,15 +179,35 @@ with st.expander("Search for Pal"):
 
     with st.container():
         # Return combinations
-        r_list = [r1, r2, r3, r4]
-        index = 0
-        for c in result:
-            if filter_option:
-                if filter_option in c:
-                    couple = f"{c[0]} + {c[1]}"
-                    r_list[index].code(couple)
-                    index = (index + 1) % len(r_list)
-            else:
-                couple = f"{c[0]} + {c[1]}"
-                r_list[index].code(couple)
-                index = (index + 1) % len(r_list)
+        
+            r_list = [r1, r2, r3, r4]
+            index = 0
+            for c in result:
+                    if filter_option:
+                        if filter_option in c:
+                                r_list[index].markdown(f'<div style="border: 5px solid gray; border-radius: 8px;">', unsafe_allow_html=True)
+                                couple = f"{c[0]} + {c[1]}"
+                                col1,  col2, col3 =r_list[index].columns(3)
+                                colA,  colB, colC = r_list[index].columns(3)
+                                image_with_wiki(c[0], place=col1, width=50)
+                                col2.write('')
+                                image_with_wiki(c[1], place=col3, width=50)
+                                colA.markdown(f'<p style="color:#FFFFFF;text-align: center;">'+c[0], unsafe_allow_html=True)
+                                colB.markdown(f'<p style="color:#FFFFFF;text-align: center;">+', unsafe_allow_html=True)
+                                colC.markdown(f'<p style="color:#FFFFFF;text-align: center;">'+c[1], unsafe_allow_html=True)
+                                index = (index + 1) % len(r_list)
+                                
+                                
+                    else:
+                            r_list[index].markdown(f'<div style="border: 5px solid gray; border-radius: 8px; ">', unsafe_allow_html=True)
+                            couple = f"{c[0]} + {c[1]}"
+                            col1,  col2, col3 =r_list[index].columns(3)
+                            colA,  colB, colC = r_list[index].columns(3)
+                            image_with_wiki(c[0], place=col1, width=50)
+                            col2.write('')
+                            image_with_wiki(c[1], place=col3, width=50)
+                            colA.markdown(f'<p style="color:#FFFFFF;text-align: center;">'+c[0], unsafe_allow_html=True)
+                            colB.markdown(f'<p style="color:#FFFFFF;text-align: center;">+', unsafe_allow_html=True)
+                            colC.markdown(f'<p style="color:#FFFFFF;text-align: center;">'+c[1], unsafe_allow_html=True)
+                            index = (index + 1) % len(r_list)
+
