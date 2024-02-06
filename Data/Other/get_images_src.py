@@ -28,13 +28,20 @@ for pal in pals[0]:
     elif " " in pal:
         url_pal = pal.replace(" ", "_")
 
-    url = f"https://palworld.fandom.com/wiki/{url_pal}?file={url_pal}.png"
-    response = requests.get(url)
-    if response.status_code == 200:
-        soup = BeautifulSoup(response.text, "lxml")
-        src = soup.find("img", {"alt": alt_pal}).get("src")
-        src = src.split(".png")[0] + ".png"
+    if pal == "Hangyu":
+        src = "https://www.paldeck.xyz/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fdierlpbxm%2Fimage%2Fupload" \
+              "%2Fv1705439180%2Fhangyu_8e2e97eccd.png&w=640&q=75 "
         csv_data.append([pal, src])
+
+    # Script
+    else:
+        url = f"https://palworld.fandom.com/wiki/{url_pal}?file={url_pal}.png"
+        response = requests.get(url)
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.text, "lxml")
+            src = soup.find("img", {"alt": alt_pal}).get("src")
+            src = src.split(".png")[0] + ".png"
+            csv_data.append([pal, src])
 
 print("Image sources successfully obtained.")
 
