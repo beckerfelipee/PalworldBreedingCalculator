@@ -97,29 +97,57 @@ def get_wiki(pal):
     else:
         return False
 
-def image_with_wiki(pal, place=st , width=100):
-    href = get_wiki(pal)
-    src = get_image(pal)
-    place.markdown(f'''
-        <a href="{href}">
-            <img src="{src}" width="{width}" height="{width}" style="margin-left: 10px;" />
-        </a>''', unsafe_allow_html=True)
+
+def image_with_wiki(pal, next_pal=None, place=st, width=200):
+    if not next_pal:
+        href = get_wiki(pal)
+        src = get_image(pal)
+        place.markdown(f'''
+            <a href="{href}">
+                <img src="{src}" width="{width}" height="{width}" style="margin-left: 0px;"/>
+            </a>''', unsafe_allow_html=True)
+    else:
+        # Create a Combination Card
+        href1 = get_wiki(pal)
+        src1 = get_image(pal)
+        href2 = get_wiki(next_pal)
+        src2 = get_image(next_pal)
+        place.markdown(f'''
+            <div style="text-align: center; height: 150px;">
+                <figure style="display: inline-block; margin-right: 20px;">
+                    <figcaption style="font-size: 16px; margin-bottom: 10px;">{pal}</figcaption>
+                    <a href="{href1}">
+                        <img align="left" src="{src1}" width="{width}" height="{width}"/>
+                    </a>
+                </figure>
+                <div style="display: inline-block; transform: translateY(250%);">
+                    ➕
+                </div>
+                <figure style="display: inline-block; margin-bottom: 50px; margin-left: 20px;">
+                    <figcaption style="font-size: 16px; margin-bottom: 10px;">{next_pal}</figcaption>
+                    <a href="{href2}">
+                        <img align="right" src="{src2}" width="{width}" height="{width}"/>
+                    </a>
+                </figure>
+            </div>
+        ''', unsafe_allow_html=True)
 
 
 # ---------------------------- Web App Build -------------------------- #
 
 # Header
 with st.container():
-    c1, c2, c3 = st.columns(3)
+    c1, c2, c3, c4 = st.columns([2, 1, 3, 3])
     c1.text("Game Version: 0.1.4.0")
     c1.write("[https://github.com/beckerfelipee](https://github.com/beckerfelipee)")
+    if c3.button("🚀 Coming soon... ", use_container_width=True):
+        st.toast("New website for finding the best pals to work is on its way!!", icon='🤚')
+    c3.title('Palworld Breeding :blue[Calculator]', anchor=False)
     c1.link_button("Buy me a coffee!", "https://www.buymeacoffee.com/beckerfelipee")
-    c2.title('Palworld Breeding :blue[Calculator]', anchor=False)
 
 # Calculator Area
 
-with st.container():
-    st.divider()
+with st.container(border=True):
     left, space1, center1, space2, center2, space3, center3, space4, right = st.columns([3, 1, 2, 1, 2, 1, 2, 1, 3])
     pals_list = get_pals_list()
 
@@ -132,33 +160,39 @@ with st.container():
     # Parent 1
     center1.header("Parent 1", anchor=False)
     pal1 = center1.selectbox("pal1", pals_list, label_visibility="hidden")
-    image_with_wiki(pal1, center1)
+    image_with_wiki(pal1, place=center1)
 
     # Parent 2
     center2.header("Parent 2", anchor=False)
     pal2 = center2.selectbox("pal2", pals_list, label_visibility="hidden")
-    image_with_wiki(pal2, center2)
+    image_with_wiki(pal2, place=center2)
 
     # Result
     center3.header("Result", anchor=False)
-    center3.markdown("")
+    center3.text("")
     pal3 = get_children(pal1, pal2)
     center3.code(pal3)
-    image_with_wiki(pal3, center3)
-    st.divider()
+    image_with_wiki(pal3, place=center3)
 
     # Some Easter Egg (Subscribe to Gaubss)
     if pal1 == "Bushi" and pal2 == "Penking":
         st.toast('Subscribe to Gaubss Youtube Channel!', icon='🔺')
 
+    # space
+    st.title("")
+    st.title("")
+
 # Search by Result
-with st.expander("Search for Pal"):
-    st.divider()
+with st.container(border=True):
     st.header("Search for Pal", anchor=False)
-    l, s1, r1, s2, r2, s3, r3, s4, r4 = st.columns([3, 1, 3, 1, 3, 1, 3, 1, 3])
+    l, s1, r1, s2, r2, s3, r3, s4, r4, = st.columns([7, 1, 9, 1, 9, 1, 9, 1, 9])
 
     # Pal for Search
     pal4 = l.selectbox("pal4", pals_list, label_visibility="hidden")
+
+    # Some Easter Egg (Subscribe to Zackstabz)
+    if pal4 == "Orserk":
+        st.toast('Subscribe to Zackstabz Youtube Channel!', icon='🔺')
 
     # get combinations
     result = get_combinations(pal4)
@@ -174,40 +208,22 @@ with st.expander("Search for Pal"):
     filter_option = l.selectbox("Filter by parent", possible_pals, index=None)
 
     # Pal Image
-    image_with_wiki(pal4, l)
+    image_with_wiki(pal4, place=l)
     l.divider()
 
     with st.container():
         # Return combinations
-        
-            r_list = [r1, r2, r3, r4]
-            index = 0
-            for c in result:
-                    if filter_option:
-                        if filter_option in c:
-                                r_list[index].markdown(f'<div style="border: 5px solid gray; border-radius: 8px;">', unsafe_allow_html=True)
-                                couple = f"{c[0]} + {c[1]}"
-                                col1,  col2, col3 =r_list[index].columns(3)
-                                colA,  colB, colC = r_list[index].columns(3)
-                                image_with_wiki(c[0], place=col1, width=50)
-                                col2.write('')
-                                image_with_wiki(c[1], place=col3, width=50)
-                                colA.markdown(f'<p style="color:#FFFFFF;text-align: center;">'+c[0], unsafe_allow_html=True)
-                                colB.markdown(f'<p style="color:#FFFFFF;text-align: center;">+', unsafe_allow_html=True)
-                                colC.markdown(f'<p style="color:#FFFFFF;text-align: center;">'+c[1], unsafe_allow_html=True)
-                                index = (index + 1) % len(r_list)
-                                
-                                
-                    else:
-                            r_list[index].markdown(f'<div style="border: 5px solid gray; border-radius: 8px; ">', unsafe_allow_html=True)
-                            couple = f"{c[0]} + {c[1]}"
-                            col1,  col2, col3 =r_list[index].columns(3)
-                            colA,  colB, colC = r_list[index].columns(3)
-                            image_with_wiki(c[0], place=col1, width=50)
-                            col2.write('')
-                            image_with_wiki(c[1], place=col3, width=50)
-                            colA.markdown(f'<p style="color:#FFFFFF;text-align: center;">'+c[0], unsafe_allow_html=True)
-                            colB.markdown(f'<p style="color:#FFFFFF;text-align: center;">+', unsafe_allow_html=True)
-                            colC.markdown(f'<p style="color:#FFFFFF;text-align: center;">'+c[1], unsafe_allow_html=True)
-                            index = (index + 1) % len(r_list)
-
+        r_list = [r1, r2, r3, r4]
+        index = 0
+        for c in result:
+            if filter_option:
+                if filter_option in c:
+                    with r_list[index].container(border=True):
+                        couple = f"{c[0]} + {c[1]}"
+                        image_with_wiki(c[0], next_pal=c[1], width=80)
+                        index = (index + 1) % len(r_list)
+            else:
+                with r_list[index].container(border=True):
+                    couple = f"{c[0]} + {c[1]}"
+                    image_with_wiki(c[0], next_pal=c[1], width=80)
+                    index = (index + 1) % len(r_list)
