@@ -115,7 +115,7 @@ def image_with_wiki(pal, next_pal=None, place=st, width=200):
         place.markdown(f'''
             <div style="text-align: center; height: 150px;">
                 <figure style="display: inline-block; margin-right: 20px;">
-                    <figcaption style="font-size: 16px; margin-bottom: 10px;">{pal}</figcaption>
+                    <figcaption style="font-size: 15px; margin-bottom: 10px;">{pal}</figcaption>
                     <a href="{href1}">
                         <img align="left" src="{src1}" width="{width}" height="{width}"/>
                     </a>
@@ -124,7 +124,7 @@ def image_with_wiki(pal, next_pal=None, place=st, width=200):
                     ➕
                 </div>
                 <figure style="display: inline-block; margin-bottom: 50px; margin-left: 20px;">
-                    <figcaption style="font-size: 16px; margin-bottom: 10px;">{next_pal}</figcaption>
+                    <figcaption style="font-size: 15px; margin-bottom: 10px;">{next_pal}</figcaption>
                     <a href="{href2}">
                         <img align="right" src="{src2}" width="{width}" height="{width}"/>
                     </a>
@@ -220,10 +220,10 @@ with st.container(border=True):
                 if filter_option in c:
                     with r_list[index].container(border=True):
                         couple = f"{c[0]} + {c[1]}"
-                        image_with_wiki(c[0], next_pal=c[1], width=80)
+                        image_with_wiki(c[0], next_pal=c[1], width=90)
                         index = (index + 1) % len(r_list)
             else:
                 with r_list[index].container(border=True):
                     couple = f"{c[0]} + {c[1]}"
-                    image_with_wiki(c[0], next_pal=c[1], width=80)
+                    image_with_wiki(c[0], next_pal=c[1], width=90)
                     index = (index + 1) % len(r_list)
