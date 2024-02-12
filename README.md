@@ -1,6 +1,8 @@
 # Palworld Breeding Calculator
 This repository contains the source code and necessary information for the Palworld breeding calculator.
 
+https://breeding-calculator-palworld.streamlit.app/
+
 
 
 ## Breeding in Palworld
