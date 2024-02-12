@@ -140,8 +140,8 @@ with st.container():
     c1, c2, c3, c4 = st.columns([2, 1, 3, 3])
     c1.text("Game Version: 0.1.4.0")
     c1.write("[https://github.com/beckerfelipee](https://github.com/beckerfelipee)")
-    if c3.button("🚀 Coming soon... ", use_container_width=True):
-        st.toast("New website for finding the best pals to work is on its way!!", icon='🤚')
+    c3.link_button("🐢 Site slow? Try our secondary server!", "https://breeding-calculator-palworld-2.streamlit.app/",
+                   use_container_width=True)
     c3.title('Palworld Breeding :blue[Calculator]', anchor=False)
     c1.link_button("Buy me a coffee!", "https://www.buymeacoffee.com/beckerfelipee")
 
