@@ -7,7 +7,7 @@ https://breeding-calculator-palworld.streamlit.app/
 
 ## Breeding in Palworld
 
-<img alt="Cattiva" align="left" height="230" src="https://cdn.discordapp.com/attachments/1201628901521236148/1201935936716541992/Palworld-Cattiva-PNG.png?ex=65cba112&is=65b92c12&hm=47e1dbaaff23bb72a487cf2a3349e02b72090d1a2fca3116ed77b1085f0d63e0&">
+<img alt="Cattiva" align="left" height="230" src="https://raw.githubusercontent.com/beckerfelipee/ImagesDB/main/Palworld/Cattiva.png">
 
 Palworld is an adventure, survival, and monster-capturing game where players can battle and capture creatures called "Pals" for various in-game activities.
 
@@ -25,26 +25,21 @@ This website serves as a Palworld breeding guide, providing players with all bre
 
 🔀 Search by Parents:
 
-<img alt="SearchByParents" height="230" src="https://cdn.discordapp.com/attachments/1201628901521236148/1201955608258162768/Desktop2024.01.30-18.20.03.05.DVR-Trim-ezgif.com-video-to-gif-converter.gif">
+<img alt="SearchByParents" height="230" src="https://raw.githubusercontent.com/beckerfelipee/ImagesDB/main/Palworld/SearchByParents.gif">
 
 🔎 Search for Pal:
 
-<img alt="SearchForPal" height="230" src="https://cdn.discordapp.com/attachments/1201628901521236148/1201957078512697384/Desktop2024.01.30-18.23.37.06.DVR-Trim-ezgif.com-video-to-gif-converter.gif">
+<img alt="SearchForPal" height="230" src="https://raw.githubusercontent.com/beckerfelipee/ImagesDB/main/Palworld/SearchForPal.gif">
 
 ## Tips
 
 1. Click on Pal Image to redirect to their wiki!
 
-<img alt="Rushoar" height="200" src="https://cdn.discordapp.com/attachments/1201628901521236148/1201945782928805948/Designsemnome-ezgif.com-crop.gif">
+<img alt="Rushoar" height="200" src="https://raw.githubusercontent.com/beckerfelipee/ImagesDB/main/Palworld/Rushoar.gif">
 
 2. Filter your search with Parent Filter!
 
-<img alt="Filter" height="200" src="https://cdn.discordapp.com/attachments/1201628901521236148/1201949691210907679/Designsemnome1-ezgif.com-crop.gif">
-
-3. Switch between Dark and Light Themes:
-
-<img alt="Settings" align="left" height="200" src="https://cdn.discordapp.com/attachments/1201628901521236148/1201948196289388624/image.png">
-<img alt="Themes" height="200" src="https://cdn.discordapp.com/attachments/522872766119149580/1201942990403407932/image.png">
+<img alt="Filter" height="200" src="https://raw.githubusercontent.com/beckerfelipee/ImagesDB/main/Palworld/filter.gif">
 
 ## Contribution
 If you want to contribute to improving this breeding guide, feel free to follow the steps below:
