@@ -3,7 +3,9 @@ This repository contains the source code and necessary information for the Palwo
 
 https://breeding-calculator-palworld.streamlit.app/
 
+## A Note of Gratitude
 
+I'm incredibly grateful to announce that our website has surpassed 100,000 visits, reaching over 10,000 unique devices. I extend my heartfelt thanks to each and every one of you who has visited, explored, and engaged with our content.
 
 ## Breeding in Palworld
 
