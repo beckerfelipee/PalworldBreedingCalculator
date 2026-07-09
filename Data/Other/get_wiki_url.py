@@ -18,6 +18,8 @@ for pal in pals[0]:
         url_pal = "Gumoss"
     elif pal == "Ribunny":
         url_pal = "Ribbuny"
+    elif pal == "Ribunny Botan":
+        url_pal = "Ribbuny_Botan"
 
     url = f"https://palworld.fandom.com/wiki/{url_pal}"
     csv_data.append([pal, url])

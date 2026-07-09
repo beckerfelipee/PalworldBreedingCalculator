@@ -1,7 +1,9 @@
 import csv
+import json
+import subprocess
+import urllib.parse
+
 import pandas as pd
-import requests
-from bs4 import BeautifulSoup
 
 pals = pd.read_csv(r'../Pals.csv', header=None)
 
@@ -13,35 +15,71 @@ csv_data = []
 no_image_src = ["No Image", "https://consultix.radiantthemes.com/demo-nine/wp-content/"
                     "themes/consultix/images/no-image-found-360x250.png"]
 
+# Name mismatches between our Pals.csv display names and the fandom wiki article titles.
+ALIASES = {
+    "Gumoss (Special)": "Gumoss",
+    "Ribunny": "Ribbuny",
+    "Ribunny Botan": "Ribbuny Botan",
+}
+
+# Manual overrides for pals whose wiki page has no usable pageimage (or needs a
+# specific known-good source).
+MANUAL_SRC = {
+    "Hangyu": "https://www.paldeck.xyz/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fdierlpbxm%2Fimage%2Fupload"
+              "%2Fv1705439180%2Fhangyu_8e2e97eccd.png&w=640&q=75 ",
+    "Yakumo": "https://static.wikia.nocookie.net/palworld/images/b/ba/Yakumo.png",
+    # These two pages have no MediaWiki "page image" property set, so the API's
+    # prop=pageimages lookup returns nothing even though the file exists.
+    "Ice Reptyro": "https://static.wikia.nocookie.net/palworld/images/5/57/Ice_Reptyro.png",
+    "Ice Kingpaca": "https://static.wikia.nocookie.net/palworld/images/b/bd/Ice_Kingpaca.png",
+}
+
+# NOTE: palworld.fandom.com's HTML pages are Cloudflare-blocked in some sandboxed
+# environments (both curl and requests get blocked), but the MediaWiki API is not.
+# We use action=query&prop=pageimages to fetch the canonical infobox image URL
+# directly, instead of scraping HTML.
+
+
+def fetch_image(title: str):
+    q = urllib.parse.quote(title.replace(" ", "_"))
+    url = (
+        f"https://palworld.fandom.com/api.php?action=query&titles={q}"
+        "&prop=pageimages&piprop=original&format=json"
+    )
+    try:
+        out = subprocess.run(
+            ["curl", "-s", "--max-time", "15", url],
+            capture_output=True, text=True, timeout=20,
+        )
+        data = json.loads(out.stdout)
+        pages = data.get("query", {}).get("pages", {})
+        for page in pages.values():
+            if "original" in page:
+                src = page["original"]["source"]
+                # Strip the "/revision/latest?cb=..." suffix for a stable, clean URL.
+                if ".png" in src:
+                    src = src.split(".png")[0] + ".png"
+                return src
+    except Exception as exc:  # noqa: BLE001
+        print(f"Error fetching image for {title}: {exc}")
+    return None
+
+
+missing = []
 for pal in pals[0]:
-    # Variable Declaration
-    url_pal = pal
-    alt_pal = pal
+    if pal in MANUAL_SRC:
+        csv_data.append([pal, MANUAL_SRC[pal]])
+        continue
 
-    # Exceptions
-    if pal == "Gumoss (Special)":
-        url_pal = "Gumoss"
-        alt_pal = "Gumoss"
-    elif pal == "Ribunny":
-        url_pal = "Ribbuny"
-        alt_pal = "Ribbuny"
-    elif " " in pal:
-        url_pal = pal.replace(" ", "_")
-
-    if pal == "Hangyu":
-        src = "https://www.paldeck.xyz/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fdierlpbxm%2Fimage%2Fupload" \
-              "%2Fv1705439180%2Fhangyu_8e2e97eccd.png&w=640&q=75 "
+    title = ALIASES.get(pal, pal)
+    src = fetch_image(title)
+    if src:
         csv_data.append([pal, src])
-
-    # Script
     else:
-        url = f"https://palworld.fandom.com/wiki/{url_pal}?file={url_pal}.png"
-        response = requests.get(url)
-        if response.status_code == 200:
-            soup = BeautifulSoup(response.text, "lxml")
-            src = soup.find("img", {"alt": alt_pal}).get("src")
-            src = src.split(".png")[0] + ".png"
-            csv_data.append([pal, src])
+        missing.append(pal)
+
+if missing:
+    print("Warning, no image found for:", missing)
 
 print("Image sources successfully obtained.")
 
