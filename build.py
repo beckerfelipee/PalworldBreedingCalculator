@@ -105,7 +105,6 @@ def t(key, **kwargs):
     return text.format(**kwargs) if kwargs else text
 
 
-# Start Webpage
 st.set_page_config(page_title=t("title"), page_icon="🐣", layout="wide")
 
 # ---------------------------- Retrowave Miami Theme ----------------------- #
@@ -114,7 +113,6 @@ st.markdown('''
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Righteous&family=Bebas+Neue&display=swap');
 
-    /* ---- Miami sunset backdrop ---- */
     .stApp {
         background:
             radial-gradient(1100px 600px at 88% -10%, rgba(255, 139, 61, .25), transparent 60%),
@@ -125,10 +123,6 @@ st.markdown('''
     }
     [data-testid="stHeader"] { background: transparent; }
 
-    /* ---- Typography ---- */
-    /* Poster-style caps for section headers (Parent 1/2, Result, Search
-       for Pal) — a bolder, more "GTA-poster" look than the title's
-       rounded Righteous font. */
     h1, h2, h3 {
         font-family: 'Bebas Neue', sans-serif !important;
         letter-spacing: 1.5px;
@@ -155,21 +149,14 @@ st.markdown('''
         100% { background-position: 300% 50%; }
     }
 
-    /* ---- Language picker: button-sized, pinned to the right ----
-       Its column (c3) is deliberately as wide as c1 so the title column
-       between them sits at the page's true center; this caps the
-       selectbox itself (which always stretches to its column's full
-       width) back down to a compact size and pushes it to the right
-       edge of that now-wider column. */
+    /* Column is kept as wide as the coffee-button column so the language
+       selectbox (which always stretches to its column's full width) can be
+       capped back down and pushed to the right edge via max-width + margin. */
     .st-key-lang {
         max-width: 180px;
         margin-left: auto;
     }
-    /* Its actual height is matched to the coffee button's rendered height
-       by JS below — guessing Streamlit's internal selectbox markup via
-       CSS alone proved unreliable across versions. */
 
-    /* ---- Glass section panels ---- */
     .st-key-calculator_area, .st-key-search_area {
         background: rgba(255, 255, 255, .55);
         border: 1px solid rgba(255, 45, 120, .18);
@@ -179,7 +166,6 @@ st.markdown('''
         backdrop-filter: blur(6px);
         margin-bottom: 1.2rem;
     }
-    /* Both cards tilt in 3D toward the cursor (JS below) */
     .st-key-calculator_area, .st-key-search_area {
         will-change: transform;
         transition: transform .15s ease-out, box-shadow .25s ease;
@@ -188,11 +174,6 @@ st.markdown('''
         box-shadow: 0 16px 40px rgba(255, 45, 120, .16);
     }
 
-    /* ---- Floating pal portraits ----
-       Fixed 1 : 1.2 box so every portrait lines up at the same height.
-       object-fit: contain (not cover) keeps the whole artwork visible —
-       any leftover space pads transparently on the sides or top/bottom
-       instead of cropping. */
     .pal-float {
         display: block;
         width: min(170px, 100%);
@@ -215,7 +196,6 @@ st.markdown('''
         50%      { transform: translateY(-3px); }
     }
 
-    /* ---- Combinations grid (fluid, never breaks) ---- */
     .combo-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -232,8 +212,8 @@ st.markdown('''
         border-radius: 16px;
         padding: 14px 8px 10px 8px;
         box-shadow: 0 4px 14px rgba(67, 48, 94, .06);
-        /* 'backwards' (not 'both'): a filled animation would hold `transform`
-           forever and override the JS tilt's inline style */
+        /* 'backwards': a 'both' fill would hold `transform` forever and
+           override the JS tilt's inline style below */
         animation: fade-up .45s ease backwards;
         animation-delay: calc(var(--i, 0) * 35ms);
         will-change: transform;
@@ -285,7 +265,6 @@ st.markdown('''
         -webkit-text-fill-color: transparent;
     }
 
-    /* ---- Buttons: rounded pills with hover lift ---- */
     .stButton button, .stLinkButton a {
         border-radius: 999px !important;
         transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease !important;
@@ -295,21 +274,15 @@ st.markdown('''
         box-shadow: 0 8px 18px rgba(255, 45, 120, .28);
     }
 
-    /* ---- Sunset divider ---- */
     hr {
         border: none !important;
         height: 2px !important;
         background: linear-gradient(90deg, transparent, #FF2D78, #FF8B3D, transparent) !important;
     }
 
-    /* ---- Fit-to-width text starts invisible ----
-       Hidden the instant the browser paints, before the auto-fit script
-       (below) gets a chance to run — otherwise there's a brief flash of
-       the default (too-large / possibly wrapped) text at its native size.
-       The JS then reveals it via the .fit-fade animation right after
-       sizing it correctly, so what you see is only ever the final,
-       already-fitted text fading in — on first load AND on every later
-       change (e.g. switching language). */
+    /* Hidden until the auto-fit script below sizes and reveals it via
+       .fit-fade, avoiding a flash of unsized/wrapped text on load or
+       language switch. */
     .st-key-parent1_wrap h1, .st-key-parent1_wrap h2, .st-key-parent1_wrap h3,
     .st-key-parent2_wrap h1, .st-key-parent2_wrap h2, .st-key-parent2_wrap h3,
     .st-key-result_wrap h1, .st-key-result_wrap h2, .st-key-result_wrap h3,
@@ -324,10 +297,8 @@ st.markdown('''
     .fit-fade {
         animation: fit-fade-in .35s ease forwards;
     }
-    /* .neon-title already has its own looping gradient-slide animation;
-       `animation` is a shorthand, so adding .fit-fade on top would replace
-       it instead of running both. This combined rule (higher specificity:
-       two classes) keeps the gradient slide alive alongside the fade-in. */
+    /* `animation` is a shorthand, so .fit-fade alone would replace
+       .neon-title's own gradient-slide instead of running both. */
     .neon-title.fit-fade {
         animation: gradient-slide 8s linear infinite, fit-fade-in .35s ease forwards;
     }
@@ -366,7 +337,6 @@ def load_wikis_url():
     return sources
 
 
-# start Data
 df_pals, n_pals = load_pals()
 df_all_combos = load_all_combinations()
 img_sources = load_images_src()
@@ -461,41 +431,22 @@ def combo_card_html(pal1, pal2, index=0):
 
 # Header
 with st.container():
-    # c1 and c3 must be the SAME width — the title (centered within c2)
-    # only lands in the true middle of the page when its column is
-    # flanked by two equal-width columns either side. The language
-    # selectbox is kept button-sized despite c3 now being wider via the
-    # .st-key-lang max-width + margin-left:auto rule below.
     c1, c2, c3 = st.columns([2, 5, 2])
 
     c1.write("[https://github.com/beckerfelipee](https://github.com/beckerfelipee)")
     c1.link_button(t("buy_coffee"), "https://www.buymeacoffee.com/beckerfelipee", key="coffee_btn")
 
-    # A <div>, not a real heading tag: Streamlit auto-attaches an anchor
-    # link icon to any h1-h6 it finds in markdown content, which throws
-    # off centering (the icon eats horizontal space unevenly depending on
-    # the title's length/language). A div renders identically via the
-    # .neon-title class without triggering that behavior.
+    # A <div>, not a heading tag: Streamlit auto-attaches an anchor icon to
+    # any h1-h6, which throws off centering across languages of varying length.
     c2.markdown(f'<div class="neon-title">{t("title")}</div>', unsafe_allow_html=True)
-    # Secondary server link — disabled for now, may bring it back later.
-    # c2.link_button(t("secondary_server"), "https://breeding-calculator-palworld-2.streamlit.app/",
-    #                use_container_width=True, key="secondary_btn")
 
-    # Language picker, in its own narrow right-hand column so it stays
-    # button-sized instead of stretching to fill a wide column. Bound
-    # directly to st.session_state.lang via `key` (format_func only
-    # controls the displayed label) instead of computing `index=` from
-    # session_state on every rerun — that pattern is a known Streamlit
-    # trap: since there's no stable key, Streamlit can't tell "the user
-    # just picked something" apart from "the default changed", so the
-    # very first click only registers on the *next* rerun.
-    # st.text defaults to width="content" (the box only spans its own
-    # text, not the column) — that's why a plain CSS text-align had no
-    # effect earlier: there was no leftover space to align *within*.
-    # width="stretch" + text_alignment="right" are the native fix.
     c3.text(t("game_version", version=GAME_VERSION), width="stretch", text_alignment="right")
     lang_codes = [entry["code"] for entry in LANGUAGES]
     name_by_code = {entry["code"]: entry["name"] for entry in LANGUAGES}
+    # Bound via `key` (format_func only controls the label) rather than an
+    # `index=` computed from session_state: without a stable key Streamlit
+    # can't tell "user just picked something" from "default changed", so
+    # the first click only registers on the next rerun.
     c3.selectbox("", lang_codes, format_func=lambda code: name_by_code[code], key="lang")
 
 # Calculator Area
@@ -528,16 +479,14 @@ with st.container(key="calculator_area"):
     center3.code(pal3)
     image_with_wiki(pal3, place=center3)
 
-    # Some Easter Egg (Subscribe to Gaubss)
     if pal1 == "Bushi" and pal2 == "Penking":
         st.toast(t("subscribe_toast", channel="Gaubss"), icon='🔺')
 
-    # Easter Egg: Katress + Wixen's real result depends on parent gender,
-    # which this calculator's single-outcome-per-pair data can't represent.
+    # Katress + Wixen's real result depends on parent gender, which this
+    # calculator's single-outcome-per-pair data can't represent.
     if {pal1, pal2} == {"Katress", "Wixen"}:
         st.toast(t("gender_exception_toast"), icon='🧬')
 
-    # space
     st.title("")
 
 # Search by Result
@@ -546,17 +495,13 @@ with st.container(key="search_area"):
         st.header(t("search_header"), anchor=False)
     l, s1, results_area = st.columns([7, 1, 37])
 
-    # Pal for Search
     pal4 = l.selectbox("pal4", pals_list, label_visibility="hidden")
 
-    # Some Easter Egg (Subscribe to Zackstabz)
     if pal4 == "Orserk":
         st.toast(t("subscribe_toast", channel="Zackstabz"), icon='🔺')
 
-    # get combinations
     result = get_combinations(pal4)
 
-    # Create Filter
     possible_pals = []
     for c in result:
         if not c[0] in possible_pals:
@@ -568,38 +513,28 @@ with st.container(key="search_area"):
         t("filter_label"),
         possible_pals, index=None, placeholder=t("choose_option"), key="filter_select")
 
-    # Pal Image
     image_with_wiki(pal4, place=l)
     l.divider()
 
-    # Return combinations (responsive grid: auto-fits any screen width)
     combos = [c for c in result if not filter_option or filter_option in c]
     grid = '<div class="combo-grid">' + ''.join(
         combo_card_html(a, b, i) for i, (a, b) in enumerate(combos)) + '</div>'
     results_area.markdown(grid, unsafe_allow_html=True)
 
-    # space
     st.title("")
 
-# Subtle 3D tilt following the mouse: a strong-ish tilt on the small combo
-# cards, and a much gentler one on the whole calculator card (a big element
-# needs far fewer degrees to feel "subtle" — the corners travel much farther
-# per degree of rotation). st.html (unlike st.markdown) injects straight
-# into the main document with no iframe, so a single delegated listener
-# here actually reaches every tiltable element.
-#
-# No "only run once" boolean guard here on purpose: Streamlit reruns this
-# script's HTML in the *same* browser tab whenever the app reruns, and a
-# stale boolean would permanently lock in whatever selector/logic happened
-# to run first, silently ignoring every later edit. Instead we always
-# remove the previous handlers (if any) and attach the current ones.
+# Subtle 3D tilt following the mouse. st.html injects straight into the main
+# document (no iframe), so one delegated listener reaches every tiltable
+# element. No "run once" guard: Streamlit reruns this script in the same
+# browser tab on every rerun, so handlers are always removed and reattached
+# rather than locked in behind a stale boolean.
 st.html('''
 <script>
     (function() {
         const TILT_CONFIGS = [
             { selector: '.combo-card', maxDeg: 16, lift: -3 },
             { selector: '.st-key-calculator_area', maxDeg: 2, lift: 0 },
-            { selector: '.st-key-search_area', maxDeg: 2, lift: 0 },
+            { selector: '.st-key-search_area', maxDeg: 0, lift: 0 },
         ];
         let current = null;
 
@@ -644,11 +579,9 @@ st.html('''
         document.addEventListener('mouseleave', onLeave);
     })();
 
-    // Shrink translated labels to the largest font that still fits on one
-    // line, instead of letting the browser wrap them. A character-count
-    // guess can't work here (fonts, kerning and CJK glyph width all vary),
-    // so this measures the *real* rendered width and backs the font size
-    // off in small steps until it stops overflowing.
+    // Shrinks translated labels to the largest font that fits on one line
+    // instead of wrapping, by measuring real rendered width (a char-count
+    // guess can't work across fonts/kerning/CJK glyph widths).
     (function() {
         const FIT_TARGETS = [
             { key: 'parent1_wrap', tags: ['h1', 'h2', 'h3'] },
@@ -663,9 +596,8 @@ st.html('''
         const MIN_SCALE = 0.5;
 
         function fitOne(el) {
-            // Cache the CSS-default size once per element so repeated
-            // passes always shrink from the same starting point instead
-            // of compounding shrinkage across passes.
+            // Cache the CSS-default size once so repeated passes shrink
+            // from the same baseline instead of compounding.
             if (!el.dataset.fitBase) {
                 el.style.fontSize = '';
                 el.dataset.fitBase = parseFloat(getComputedStyle(el).fontSize) || 16;
@@ -682,10 +614,6 @@ st.html('''
                 guard++;
             }
 
-            // Fade in on first appearance and whenever the text actually
-            // changes (e.g. a language switch) — but not on every
-            // unrelated rerun, so it doesn't flicker when some other
-            // widget elsewhere triggers a rerun and this text is unchanged.
             const text = el.textContent;
             if (el.dataset.fitText !== text) {
                 el.classList.remove('fit-fade');
@@ -707,15 +635,9 @@ st.html('''
             matchLangSelectHeight();
         }
 
-        // Force the language selectbox to the coffee button's actual
-        // rendered height. Guessing Streamlit's internal selectbox markup
-        // via hardcoded CSS selectors (e.g. data-baseweb attributes) proved
-        // unreliable across versions, so instead this measures the real
-        // button in the live DOM and walks down through the selectbox's
-        // own wrapper chain, stretching each single-child wrapper to
-        // 100% height until it reaches the actual control box (the first
-        // element with more than one child — typically the value text
-        // next to the dropdown arrow) and centers that.
+        // Matches the language selectbox's height to the coffee button's
+        // actual rendered height by walking down its wrapper chain (hardcoded
+        // Streamlit internal selectors proved unreliable across versions).
         function matchLangSelectHeight() {
             const btn = document.querySelector('.st-key-coffee_btn button, .st-key-coffee_btn a');
             const selectRoot = document.querySelector('.st-key-lang [data-testid="stSelectbox"]');
@@ -723,11 +645,6 @@ st.html('''
             const targetHeight = btn.getBoundingClientRect().height;
             if (!targetHeight) return;
 
-            // The root gets an explicit pixel height; every wrapper below
-            // it can then safely use height:100%, since a CSS percentage
-            // height only resolves against an ancestor with a *definite*
-            // height — a chain of nested 100%s here correctly traces back
-            // to this one fixed pixel value.
             selectRoot.style.height = targetHeight + 'px';
             selectRoot.style.boxSizing = 'border-box';
             let el = selectRoot;
@@ -736,9 +653,6 @@ st.html('''
                 el.style.height = '100%';
                 el.style.boxSizing = 'border-box';
             }
-            // `el` is now the first branching point — usually the actual
-            // control box holding the selected value next to the dropdown
-            // arrow — so stretch and vertically center its contents too.
             el.style.height = '100%';
             el.style.display = 'flex';
             el.style.alignItems = 'center';

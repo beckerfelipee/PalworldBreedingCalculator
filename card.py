@@ -3,20 +3,14 @@ import streamlit as st
 
 GAME_VERSION = "0.7.3"
 
-# Start Webpage
 st.set_page_config(page_title="Palworld Working Pal Cards", page_icon="🐣", layout="wide")
 
 # ---------------------------- Retrowave Miami Theme ----------------------- #
-# Same theme, fonts and animation language as build.py so both pages feel
-# like one app: Miami sunset backdrop, Bebas Neue headers, Righteous neon
-# title, glass panels with a subtle 3D tilt on hover, and staggered
-# fade-up cards.
 
 st.markdown('''
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Righteous&family=Bebas+Neue&display=swap');
 
-    /* ---- Miami sunset backdrop ---- */
     .stApp {
         background:
             radial-gradient(1100px 600px at 88% -10%, rgba(255, 139, 61, .25), transparent 60%),
@@ -27,7 +21,6 @@ st.markdown('''
     }
     [data-testid="stHeader"] { background: transparent; }
 
-    /* ---- Typography ---- */
     h1, h2, h3 {
         font-family: 'Bebas Neue', sans-serif !important;
         letter-spacing: 1.5px;
@@ -54,11 +47,9 @@ st.markdown('''
         100% { background-position: 300% 50%; }
     }
 
-    /* ---- Glass section panels (filter bar + results) ----
-       Only .st-key-filter_area gets the 3D tilt: the results panel holds
-       the whole pal grid, and each card inside already tilts on its own
-       hover — tilting the panel *and* the card under the same cursor
-       compounded their transforms and made it jitter. */
+    /* Only .st-key-filter_area tilts: each card in the results grid also
+       tilts on hover, and tilting the panel and the card together compounded
+       their transforms and made it jitter. */
     .st-key-filter_area, .st-key-cards_area {
         background: rgba(255, 255, 255, .55);
         border: 1px solid rgba(255, 45, 120, .18);
@@ -76,8 +67,6 @@ st.markdown('''
         box-shadow: 0 16px 40px rgba(255, 45, 120, .16);
     }
 
-    /* ---- Pal stat cards (grid, same fluid never-breaks layout as the
-       combo-grid in build.py) ---- */
     .pal-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
@@ -95,8 +84,8 @@ st.markdown('''
         box-shadow: 0 4px 14px rgba(67, 48, 94, .06);
         text-decoration: none !important;
         color: #43305E !important;
-        /* 'backwards' (not 'both'): a filled animation would hold
-           `transform` forever and override the JS tilt's inline style */
+        /* 'backwards': a 'both' fill would hold `transform` forever and
+           override the JS tilt's inline style below */
         animation: fade-up .45s ease backwards;
         animation-delay: calc(var(--i, 0) * 35ms);
         will-change: transform;
@@ -157,7 +146,6 @@ st.markdown('''
         flex: 0 0 auto;
     }
 
-    /* ---- Buttons: rounded pills with hover lift ---- */
     .stButton button, .stLinkButton a {
         border-radius: 999px !important;
         transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease !important;
@@ -167,7 +155,6 @@ st.markdown('''
         box-shadow: 0 8px 18px rgba(255, 45, 120, .28);
     }
 
-    /* ---- Sunset divider ---- */
     hr {
         border: none !important;
         height: 2px !important;
@@ -204,7 +191,6 @@ def load_work_suitability():
     return sources
 
 
-# Start data
 df_pals = load_pals()[0]
 img_sources = load_images_src()
 wikis_url = load_wikis_url()
@@ -241,8 +227,7 @@ def get_wiki(pal):
 
 
 def get_stats(pal):
-    """Returns the 12 work-suitability levels for a pal, in the same
-    order as STAT_FIELDS below."""
+    """Returns the 12 work-suitability levels for a pal, in the same order as STAT_FIELDS."""
     if pal in work_suitability[0].values:
         row = work_suitability[work_suitability[0] == pal].index[0]
         return [int(work_suitability[col][row]) for col in range(1, 13)]
@@ -334,10 +319,8 @@ def pal_matches(stats):
 
 # Cards
 with st.container(key="cards_area"):
-    # Header
     st.subheader("Result", anchor=False)
 
-    # Cards Body
     matches = [(p, get_stats(p)) for p in get_pals_list()]
     matches = [(p, stats) for p, stats in matches if pal_matches(stats)]
 
@@ -350,16 +333,9 @@ with st.container(key="cards_area"):
         )
         st.markdown(f'<div class="pal-grid">{cards}</div>', unsafe_allow_html=True)
 
-# Same subtle 3D tilt as build.py: strong-ish on individual pal cards,
-# gentler on the whole filter/results panels. st.html injects straight
-# into the main document (no iframe), so a single delegated listener
-# reaches every tiltable element.
-#
-# No "only run once" boolean guard here on purpose: Streamlit reruns this
-# script's HTML in the *same* browser tab whenever the app reruns, and a
-# stale boolean would permanently lock in whatever selector/logic happened
-# to run first, silently ignoring every later edit. Instead we always
-# remove the previous handlers (if any) and attach the current ones.
+# Same 3D tilt behavior as build.py: no "run once" guard since Streamlit
+# reruns this script in the same browser tab on every rerun, so handlers are
+# always removed and reattached rather than locked in behind a stale boolean.
 st.html('''
 <script>
     (function() {
