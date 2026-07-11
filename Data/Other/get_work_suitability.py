@@ -29,7 +29,10 @@ FIELDS = [
 def fetch_json(url):
     # Uses curl instead of urllib: some sandboxed environments have a broken/missing
     # local CA bundle for Python's ssl module while the system curl works fine.
-    out = subprocess.run(["curl", "-s", "--max-time", "30", url], capture_output=True, text=True)
+    # Capture raw bytes (not text=True): the response is UTF-8 and json.loads
+    # decodes bytes directly, whereas text mode uses the platform locale
+    # (cp1252 on Windows) and chokes on non-Latin localized names.
+    out = subprocess.run(["curl", "-s", "--max-time", "30", url], capture_output=True)
     return json.loads(out.stdout)
 
 

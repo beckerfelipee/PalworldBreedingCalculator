@@ -49,7 +49,7 @@ def fetch_image(title: str):
     try:
         out = subprocess.run(
             ["curl", "-s", "--max-time", "15", url],
-            capture_output=True, text=True, timeout=20,
+            capture_output=True, timeout=20,
         )
         data = json.loads(out.stdout)
         pages = data.get("query", {}).get("pages", {})

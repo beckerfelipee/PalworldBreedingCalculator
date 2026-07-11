@@ -3,7 +3,7 @@ import streamlit as st
 
 # ---------------------------- Localization --------------------------------- #
 
-GAME_VERSION = "0.7.3"
+GAME_VERSION = "1.0.0"
 
 LANGUAGES = [
     {"code": "en", "name": "English"},
@@ -17,7 +17,6 @@ TRANSLATIONS = {
     "en": {
         "game_version": "Game Version: {version}",
         "secondary_server": "🐢 Site slow? Try our secondary server!",
-        "buy_coffee": "Buy me a coffee!",
         "title": "Palworld Breeding Calculator",
         "tips_button": "Some tips!",
         "toast_wiki_tip": "You can click on the pal image to open their wiki.",
@@ -29,11 +28,15 @@ TRANSLATIONS = {
         "choose_option": "Choose an option",
         "subscribe_toast": "Subscribe to {channel}'s YouTube Channel!",
         "gender_exception_toast": "In-game, this pair's result depends on parent gender (Katress Ignis or Wixen Noct). This calculator always shows Katress Ignis.",
+        "whats_new_title": "🧬 New in 1.0: Mutation & Genetics",
+        "whats_new_body": "**Mutation**: breeding now has a small chance to hatch a *mutated* egg, the same species, but with higher stats and a unique passive skill.\n\n**Genetic Recombination**: fuse genes from Legendary Pals to pass specific traits on to the offspring.\n\n**New cakes** change the odds. Deluxe Vegetable Cake raises mutation chance, Special Cake improves passive inheritance, and Vegetable Cake yields two eggs.\n\nℹ️ This calculator shows the **species** a pair produces. Mutation and genetics affect stats and passives, not which species hatches.",
+        "coffee_dialog_title": "Enjoying the calculator?",
+        "support_button": "Support",
+        "coffee_dialog_body": "This tool is free and ad-free. If it saved you some time, a coffee helps keep it online and up to date!",
     },
     "pt-BR": {
         "game_version": "Versão do Jogo: {version}",
         "secondary_server": "🐢 Site lento? Tente nosso servidor secundário!",
-        "buy_coffee": "Me pague um café!",
         "title": "Calculadora de Reprodução Palworld",
         "tips_button": "Algumas dicas!",
         "toast_wiki_tip": "Você pode clicar na imagem do Pal para abrir sua wiki.",
@@ -45,11 +48,15 @@ TRANSLATIONS = {
         "choose_option": "Escolha uma opção",
         "subscribe_toast": "Se inscreva no canal do {channel} no YouTube!",
         "gender_exception_toast": "No jogo, o resultado desse par depende do sexo dos pais (Katress Ignis ou Wixen Noct). Esta calculadora sempre mostra Katress Ignis.",
+        "whats_new_title": "🧬 Novo na 1.0: Mutação e Genética",
+        "whats_new_body": "**Mutação**: a reprodução agora tem uma pequena chance de chocar um ovo *mutante*, a mesma espécie, mas com atributos maiores e uma habilidade passiva única.\n\n**Recombinação Genética**: combine os genes de Pals Lendários para passar características específicas para o filhote.\n\n**Novos bolos** mudam as chances: o Bolo de Vegetais Deluxe aumenta a mutação, o Bolo Especial melhora a herança de passivas e o Bolo de Vegetais dá dois ovos.\n\nℹ️ Esta calculadora mostra a **espécie** que um par gera. Mutação e genética afetam atributos e passivas, não qual espécie nasce.",
+        "coffee_dialog_title": "Curtindo a calculadora?",
+        "support_button": "Apoiar",
+        "coffee_dialog_body": "Esta ferramenta é gratuita e sem anúncios. Se ela te economizou um tempo, um café ajuda a manter tudo no ar e atualizado!",
     },
     "es": {
         "game_version": "Versión del Juego: {version}",
         "secondary_server": "🐢 ¿Sitio lento? ¡Prueba nuestro servidor secundario!",
-        "buy_coffee": "¡Invítame un café!",
         "title": "Calculadora de Cría de Palworld",
         "tips_button": "¡Algunos consejos!",
         "toast_wiki_tip": "Puedes hacer clic en la imagen del Pal para abrir su wiki.",
@@ -61,11 +68,15 @@ TRANSLATIONS = {
         "choose_option": "Elige una opción",
         "subscribe_toast": "¡Suscríbete al canal de YouTube de {channel}!",
         "gender_exception_toast": "En el juego, el resultado de esta pareja depende del sexo de los padres (Katress Ignis o Wixen Noct). Esta calculadora siempre muestra Katress Ignis.",
+        "whats_new_title": "🧬 Nuevo en 1.0: Mutación y Genética",
+        "whats_new_body": "**Mutación**: la cría ahora tiene una pequeña probabilidad de eclosionar un huevo *mutado*, la misma especie, pero con mejores estadísticas y una habilidad pasiva única.\n\n**Recombinación Genética**: fusiona genes de Pals Legendarios para transmitir rasgos específicos a la cría.\n\n**Nuevos pasteles** cambian las probabilidades: el Pastel de Verduras Deluxe aumenta la mutación, el Pastel Especial mejora la herencia de pasivas y el Pastel de Verduras da dos huevos.\n\nℹ️ Esta calculadora muestra la **especie** que produce una pareja. La mutación y la genética afectan estadísticas y pasivas, no qué especie nace.",
+        "coffee_dialog_title": "¿Te gusta la calculadora?",
+        "support_button": "Apoyar",
+        "coffee_dialog_body": "Esta herramienta es gratuita y sin anuncios. Si te ahorró algo de tiempo, ¡un café ayuda a mantenerla en línea y actualizada!",
     },
     "de": {
         "game_version": "Spielversion: {version}",
         "secondary_server": "🐢 Seite langsam? Probiere unseren Zweitserver!",
-        "buy_coffee": "Spendiere mir einen Kaffee!",
         "title": "Palworld Zucht-Rechner",
         "tips_button": "Ein paar Tipps!",
         "toast_wiki_tip": "Klicke auf das Bild eines Pals, um sein Wiki zu öffnen.",
@@ -77,11 +88,15 @@ TRANSLATIONS = {
         "choose_option": "Option auswählen",
         "subscribe_toast": "Abonniere {channel}s YouTube-Kanal!",
         "gender_exception_toast": "Im Spiel hängt das Ergebnis dieses Paares vom Geschlecht der Eltern ab (Katress Ignis oder Wixen Noct). Dieser Rechner zeigt immer Katress Ignis.",
+        "whats_new_title": "🧬 Neu in 1.0: Mutation & Genetik",
+        "whats_new_body": "**Mutation**: beim Züchten gibt es jetzt eine kleine Chance, ein *mutiertes* Ei auszubrüten, dieselbe Art, aber mit höheren Werten und einer einzigartigen passiven Fähigkeit.\n\n**Genetische Rekombination**: verschmelze Gene von legendären Pals, um bestimmte Merkmale an den Nachwuchs weiterzugeben.\n\n**Neue Kuchen** verändern die Chancen: der Deluxe-Gemüsekuchen erhöht die Mutation, der Spezialkuchen verbessert die Vererbung passiver Fähigkeiten und der Gemüsekuchen liefert zwei Eier.\n\nℹ️ Dieser Rechner zeigt die **Art**, die ein Paar hervorbringt. Mutation und Genetik beeinflussen Werte und passive Fähigkeiten, nicht welche Art schlüpft.",
+        "coffee_dialog_title": "Gefällt dir der Rechner?",
+        "support_button": "Unterstützen",
+        "coffee_dialog_body": "Dieses Tool ist kostenlos und werbefrei. Wenn es dir Zeit gespart hat, hilft ein Kaffee, es online und aktuell zu halten!",
     },
     "ja": {
         "game_version": "ゲームバージョン: {version}",
         "secondary_server": "🐢 サイトが遅い?サブサーバーをお試しください!",
-        "buy_coffee": "コーヒーをおごる!",
         "title": "パルワールド 配合計算機",
         "tips_button": "ちょっとしたヒント!",
         "toast_wiki_tip": "パルの画像をクリックするとWikiが開きます。",
@@ -93,11 +108,25 @@ TRANSLATIONS = {
         "choose_option": "オプションを選択",
         "subscribe_toast": "{channel}のYouTubeチャンネルに登録しよう!",
         "gender_exception_toast": "ゲーム内では、この組み合わせの結果は親の性別によって変わります(Katress IgnisまたはWixen Noct)。この計算機では常にKatress Ignisを表示します。",
+        "whats_new_title": "🧬 1.0の新要素:突然変異と遺伝",
+        "whats_new_body": "**突然変異**:配合で低確率で*変異した*卵が孵るようになりました。同じ種族ですが、ステータスが高く、固有のパッシブスキルを持ちます。\n\n**遺伝子組み換え**:伝説のパルの遺伝子を組み合わせ、特定の特性を子に受け継がせます。\n\n**新しいケーキ**が確率を変えます。デラックス野菜ケーキは変異率を上げ、スペシャルケーキはパッシブの遺伝を高め、野菜ケーキは卵を2つ生みます。\n\nℹ️ この計算機は組み合わせが生む**種族**を表示します。突然変異と遺伝はステータスとパッシブに影響しますが、どの種族が孵るかは変えません。",
+        "coffee_dialog_title": "計算機は役に立ちましたか?",
+        "support_button": "応援する",
+        "coffee_dialog_body": "このツールは無料で広告もありません。時間の節約になったなら、コーヒー1杯でサイトの運営と更新を応援できます!",
     },
 }
 
+VALID_LANG_CODES = {entry["code"] for entry in LANGUAGES}
+
+
+def persist_lang():
+    # Persist the language in the URL (?lang=xx) so it survives a reload.
+    st.query_params["lang"] = st.session_state.lang
+
+
 if "lang" not in st.session_state:
-    st.session_state.lang = "en"
+    saved = st.query_params.get("lang")
+    st.session_state.lang = saved if saved in VALID_LANG_CODES else "en"
 
 
 def t(key, **kwargs):
@@ -288,7 +317,6 @@ st.markdown('''
     .st-key-result_wrap h1, .st-key-result_wrap h2, .st-key-result_wrap h3,
     .st-key-search_header_wrap h1, .st-key-search_header_wrap h2, .st-key-search_header_wrap h3,
     .st-key-secondary_btn button, .st-key-secondary_btn a,
-    .st-key-coffee_btn button, .st-key-coffee_btn a,
     .st-key-tips_btn button, .st-key-tips_btn a,
     .st-key-filter_select label,
     .neon-title {
@@ -429,12 +457,64 @@ def combo_card_html(pal1, pal2, index=0):
 
 # ---------------------------- Web App Build -------------------------- #
 
+# One-shot coffee popup: shown once per session (so once per visit/reload).
+@st.dialog(t("coffee_dialog_title"))
+def coffee_dialog():
+    st.markdown(
+        '<style>'
+        '.bmc-support{display:inline-flex;align-items:center;gap:8px;background:#FF813F;'
+        'padding:10px 22px;border-radius:999px;font-weight:600;'
+        'box-shadow:0 4px 12px rgba(255,129,63,.35);'
+        'transition:transform .15s ease,box-shadow .2s ease;}'
+        # !important: Streamlit's link color/underline is more specific.
+        '.bmc-support, .bmc-support span{color:#fff !important;text-decoration:none !important;}'
+        '.bmc-support:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(255,129,63,.45);}'
+        '</style>'
+        '<div style="display:flex;justify-content:center;margin-bottom:.6rem;">'
+        '<a class="bmc-support" href="https://www.buymeacoffee.com/beckerfelipee" '
+        'target="_blank" rel="noopener">'
+        '<img src="https://cdn.buymeacoffee.com/widget/assets/coffee%20cup.svg" alt="" '
+        'style="height:22px;width:22px;">'
+        f'<span>{t("support_button")}</span></a></div>',
+        unsafe_allow_html=True)
+    st.markdown(t("coffee_dialog_body"))
+
+if "coffee_popup_shown" not in st.session_state:
+    st.session_state.coffee_popup_shown = True
+    coffee_dialog()
+
+# BMC floating widget: an external <script src> won't run when injected as HTML,
+# so build it in an inline script. The guard avoids duplicates on rerun.
+st.html('''
+<script>
+(function () {
+    if (window.__bmcWidgetInjected) return;
+    window.__bmcWidgetInjected = true;
+    const s = document.createElement('script');
+    s.setAttribute('data-name', 'BMC-Widget');
+    s.setAttribute('data-cfasync', 'false');
+    s.src = 'https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js';
+    s.setAttribute('data-id', 'beckerfelipee');
+    s.setAttribute('data-description', 'Support me on Buy me a coffee!');
+    s.setAttribute('data-message', '');
+    s.setAttribute('data-color', '#FF813F');
+    s.setAttribute('data-position', 'Right');
+    s.setAttribute('data-x_margin', '18');
+    s.setAttribute('data-y_margin', '18');
+    // The widget builds on window "DOMContentLoaded", which already fired;
+    // re-fire it on load so the button actually builds.
+    s.onload = function () { window.dispatchEvent(new Event('DOMContentLoaded')); };
+    document.body.appendChild(s);
+})();
+</script>
+''', unsafe_allow_javascript=True)
+
 # Header
 with st.container():
-    c1, c2, c3 = st.columns([2, 5, 2])
+    # Bottom-aligned so the GitHub link lines up with the language selectbox.
+    c1, c2, c3 = st.columns([2, 5, 2], vertical_alignment="bottom")
 
     c1.write("[https://github.com/beckerfelipee](https://github.com/beckerfelipee)")
-    c1.link_button(t("buy_coffee"), "https://www.buymeacoffee.com/beckerfelipee", key="coffee_btn")
 
     # A <div>, not a heading tag: Streamlit auto-attaches an anchor icon to
     # any h1-h6, which throws off centering across languages of varying length.
@@ -447,7 +527,11 @@ with st.container():
     # `index=` computed from session_state: without a stable key Streamlit
     # can't tell "user just picked something" from "default changed", so
     # the first click only registers on the next rerun.
-    c3.selectbox("", lang_codes, format_func=lambda code: name_by_code[code], key="lang")
+    c3.selectbox("", lang_codes, format_func=lambda code: name_by_code[code],
+                 key="lang", on_change=persist_lang)
+
+with st.expander(t("whats_new_title")):
+    st.markdown(t("whats_new_body"))
 
 # Calculator Area
 
@@ -589,7 +673,6 @@ st.html('''
             { key: 'result_wrap', tags: ['h1', 'h2', 'h3'] },
             { key: 'search_header_wrap', tags: ['h1', 'h2', 'h3'] },
             { key: 'secondary_btn', tags: ['button', 'a'] },
-            { key: 'coffee_btn', tags: ['button', 'a'] },
             { key: 'tips_btn', tags: ['button', 'a'] },
             { key: 'filter_select', tags: ['label'] },
         ];
@@ -632,31 +715,6 @@ st.html('''
                 }
             }
             document.querySelectorAll('.neon-title').forEach(fitOne);
-            matchLangSelectHeight();
-        }
-
-        // Matches the language selectbox's height to the coffee button's
-        // actual rendered height by walking down its wrapper chain (hardcoded
-        // Streamlit internal selectors proved unreliable across versions).
-        function matchLangSelectHeight() {
-            const btn = document.querySelector('.st-key-coffee_btn button, .st-key-coffee_btn a');
-            const selectRoot = document.querySelector('.st-key-lang [data-testid="stSelectbox"]');
-            if (!btn || !selectRoot) return;
-            const targetHeight = btn.getBoundingClientRect().height;
-            if (!targetHeight) return;
-
-            selectRoot.style.height = targetHeight + 'px';
-            selectRoot.style.boxSizing = 'border-box';
-            let el = selectRoot;
-            while (el.children.length === 1) {
-                el = el.children[0];
-                el.style.height = '100%';
-                el.style.boxSizing = 'border-box';
-            }
-            el.style.height = '100%';
-            el.style.display = 'flex';
-            el.style.alignItems = 'center';
-            el.style.boxSizing = 'border-box';
         }
 
         let debounceHandle = null;

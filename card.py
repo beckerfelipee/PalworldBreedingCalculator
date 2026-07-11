@@ -1,7 +1,7 @@
 import pandas as pd
 import streamlit as st
 
-GAME_VERSION = "0.7.3"
+GAME_VERSION = "1.0.0"
 
 st.set_page_config(page_title="Palworld Working Pal Cards", page_icon="🐣", layout="wide")
 
@@ -275,7 +275,6 @@ with st.container():
     c1, c2, c3 = st.columns([2, 5, 2])
 
     c1.write("[https://github.com/beckerfelipee](https://github.com/beckerfelipee)")
-    c1.link_button("Buy me a coffee!", "https://www.buymeacoffee.com/beckerfelipee", key="coffee_btn")
     c1.link_button("🧮 Breeding Calculator", "https://breeding-calculator-palworld.streamlit.app/",
                     key="nav_btn")
 
@@ -332,6 +331,32 @@ with st.container(key="cards_area"):
             for i, (p, stats) in enumerate(matches)
         )
         st.markdown(f'<div class="pal-grid">{cards}</div>', unsafe_allow_html=True)
+
+# BMC floating widget (same approach as build.py): an external <script src>
+# won't run when injected as HTML, so build it in an inline script.
+st.html('''
+<script>
+(function () {
+    if (window.__bmcWidgetInjected) return;
+    window.__bmcWidgetInjected = true;
+    const s = document.createElement('script');
+    s.setAttribute('data-name', 'BMC-Widget');
+    s.setAttribute('data-cfasync', 'false');
+    s.src = 'https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js';
+    s.setAttribute('data-id', 'beckerfelipee');
+    s.setAttribute('data-description', 'Support me on Buy me a coffee!');
+    s.setAttribute('data-message', '');
+    s.setAttribute('data-color', '#FF813F');
+    s.setAttribute('data-position', 'Right');
+    s.setAttribute('data-x_margin', '18');
+    s.setAttribute('data-y_margin', '18');
+    // The widget builds on window "DOMContentLoaded", which already fired;
+    // re-fire it on load so the button actually builds.
+    s.onload = function () { window.dispatchEvent(new Event('DOMContentLoaded')); };
+    document.body.appendChild(s);
+})();
+</script>
+''', unsafe_allow_javascript=True)
 
 # Same 3D tilt behavior as build.py: no "run once" guard since Streamlit
 # reruns this script in the same browser tab on every rerun, so handlers are

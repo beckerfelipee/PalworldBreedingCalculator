@@ -50,7 +50,10 @@ ALIASES = {
 def fetch_json(url):
     # Uses curl instead of urllib: some sandboxed environments have a broken/missing
     # local CA bundle for Python's ssl module while the system curl works fine.
-    out = subprocess.run(["curl", "-s", "--max-time", "30", url], capture_output=True, text=True)
+    # Capture raw bytes (not text=True): the response is UTF-8 and json.loads
+    # decodes bytes directly, whereas text mode uses the platform locale
+    # (cp1252 on Windows) and chokes on non-Latin localized names.
+    out = subprocess.run(["curl", "-s", "--max-time", "30", url], capture_output=True)
     return json.loads(out.stdout)
 
 
@@ -181,7 +184,41 @@ NEW_29 = [
     ("Whalaska", "Chillet Ignis", "Whalaska Ignis"),
 ]
 
-for p1, p2, child in OLD_28 + NEW_29:
+# 25 variant pairs for the v1.0 (Sunreach / World Tree) roster, datamined from
+# paldb.cc as of 2026-07 (one day post-launch, so worth re-verifying against a
+# second source once more sites finish datamining). Child names use this app's
+# display names -- notably "Ice Reptyro" where paldb writes "Reptyro Cryst".
+# The brand-new base Pals (Ophydia, Sekhmet, the World Tree legendaries, etc.)
+# have no unique combo -- they come from the rank formula -- so they're absent.
+NEW_V1 = [
+    ("Tanzee", "Flambelle", "Tanzee Ignis"),
+    ("Woolipop", "Kikit", "Woolipop Terra"),
+    ("Gloopie", "Valentail", "Gloopie Primo"),
+    ("Polapup", "Surfent Terra", "Polapup Terra"),
+    ("Elgrove", "Pierdon Cryst", "Elgrove Cryst"),
+    ("Petallia", "Bushi", "Petallia Ignis"),
+    ("Beakon", "Frostplume", "Beakon Cryst"),
+    ("Rayhound", "Foxcicle", "Rayhound Cryst"),
+    ("Needoll", "Prunelia", "Needoll Noct"),
+    ("Moldron", "Ice Reptyro", "Moldron Cryst"),
+    ("Sibelyx", "Lapure", "Sibelyx Primo"),
+    ("Skutlass", "Gobfin Ignis", "Skutlass Ignis"),
+    ("Starryon", "Celesdir", "Starryon Primo"),
+    ("Pierdon", "Wumpo", "Pierdon Cryst"),
+    ("Dualith", "Sootseer", "Dualith Noct"),
+    ("Prixter", "Helzephyr Lux", "Prixter Lux"),
+    ("Tetroise", "Celesdir", "Tetroise Primo"),
+    ("Nitemary", "Petallia", "Nitemary Botan"),
+    ("Smokie", "Munchill", "Smokie Cryst"),
+    ("Celesdir", "Kitsun Noct", "Celesdir Noct"),
+    ("Knocklem", "Ragnahawk", "Knocklem Ignis"),
+    ("Snock", "Turtacle Terra", "Snock Lux"),
+    ("Solmora", "Slowatt", "Solmora Lux"),
+    ("Eidrolon", "Suzaku", "Eidrolon Ignis"),
+    ("Univolt", "Frostplume", "Univolt Cryst"),
+]
+
+for p1, p2, child in OLD_28 + NEW_29 + NEW_V1:
     add_override(p1, p2, child)
 
 print(f"Loaded {len(overrides)} unique-breed overrides.")
