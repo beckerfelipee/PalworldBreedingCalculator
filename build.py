@@ -486,6 +486,13 @@ if "coffee_popup_shown" not in st.session_state:
 # BMC floating widget: an external <script src> won't run when injected as HTML,
 # so build it in an inline script. The guard avoids duplicates on rerun.
 st.html('''
+<style>
+    /* Shrink the panel the widget opens so it takes less of the screen. Only
+       the panel, not the button: zoom would also scale the button's bottom
+       margin and drop it back onto the Manage app control. zoom, not
+       transform, since the widget animates open via inline transform:scale. */
+    #bmc-iframe { zoom: 0.85; }
+</style>
 <script>
 (function () {
     if (window.__bmcWidgetInjected) return;
@@ -500,7 +507,9 @@ st.html('''
     s.setAttribute('data-color', '#FF813F');
     s.setAttribute('data-position', 'Right');
     s.setAttribute('data-x_margin', '18');
-    s.setAttribute('data-y_margin', '18');
+    // Raised (default 18) to clear Streamlit Community Cloud's bottom-right
+    // "Manage app" button.
+    s.setAttribute('data-y_margin', '60');
     // The widget builds on window "DOMContentLoaded", which already fired;
     // re-fire it on load so the button actually builds.
     s.onload = function () { window.dispatchEvent(new Event('DOMContentLoaded')); };
