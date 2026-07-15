@@ -5,7 +5,7 @@ https://breeding-calculator-palworld.streamlit.app/
 
 ## A Note of Gratitude
 
-I'm incredibly grateful to announce that our website has surpassed 100,000 visits, reaching over 10,000 unique devices. I extend my heartfelt thanks to each and every one of you who has visited, explored, and engaged with our content.
+I'm incredibly grateful to announce that our website has surpassed 500,000 visits, reaching over 130,000 unique devices. I extend my heartfelt thanks to each and every one of you who has visited, explored, and engaged with our content.
 
 ## Breeding in Palworld
 
