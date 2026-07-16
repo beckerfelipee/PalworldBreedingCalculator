@@ -11,8 +11,6 @@ pals = pd.read_csv(r'../Pals.csv', header=None)[0].tolist()
 ALIASES = {
     'Gumoss (Special)': 'Gumoss',
     'Ribunny': 'Ribbuny',
-    'Ice Reptyro': 'Reptyro Cryst',
-    'Ice Kingpaca': 'Kingpaca Cryst',
     'Ribunny Botan': 'Ribbuny Botan',
 }
 

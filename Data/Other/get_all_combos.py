@@ -42,8 +42,6 @@ pals = pd.read_csv(r'../Pals.csv', header=None)[0].tolist()
 ALIASES = {
     'Gumoss (Special)': 'Gumoss',
     'Ribunny': 'Ribbuny',
-    'Ice Reptyro': 'Reptyro Cryst',
-    'Ice Kingpaca': 'Kingpaca Cryst',
     'Ribunny Botan': 'Ribbuny Botan',
 }
 
@@ -132,7 +130,7 @@ OLD_28 = [
     ("Dinossom", "Rayhound", "Dinossom Lux"),
     ("Jolthog", "Pengullet", "Jolthog Cryst"),
     ("Frostallion", "Helzephyr", "Frostallion Noct"),
-    ("Kingpaca", "Reindrix", "Ice Kingpaca"),
+    ("Kingpaca", "Reindrix", "Kingpaca Cryst"),
     ("Lyleen", "Menasting", "Lyleen Noct"),
     ("Leezpunk", "Flambelle", "Leezpunk Ignis"),
     ("Blazehowl", "Felbat", "Blazehowl Noct"),
@@ -141,7 +139,7 @@ OLD_28 = [
     ("Surfent", "Dumud", "Surfent Terra"),
     ("Gobfin", "Rooby", "Gobfin Ignis"),
     ("Suzaku", "Jormuntide", "Suzaku Aqua"),
-    ("Reptyro", "Foxcicle", "Ice Reptyro"),
+    ("Reptyro", "Foxcicle", "Reptyro Cryst"),
     ("Hangyu", "Swee", "Hangyu Cryst"),
     ("Mossanda", "Petallia", "Lyleen"),
     ("Vanwyrm", "Anubis", "Faleris"),
@@ -186,10 +184,9 @@ NEW_29 = [
 
 # 25 variant pairs for the v1.0 (Sunreach / World Tree) roster, datamined from
 # paldb.cc as of 2026-07 (one day post-launch, so worth re-verifying against a
-# second source once more sites finish datamining). Child names use this app's
-# display names -- notably "Ice Reptyro" where paldb writes "Reptyro Cryst".
-# The brand-new base Pals (Ophydia, Sekhmet, the World Tree legendaries, etc.)
-# have no unique combo -- they come from the rank formula -- so they're absent.
+# second source once more sites finish datamining). The brand-new base Pals
+# (Ophydia, Sekhmet, the World Tree legendaries, etc.) have no unique combo --
+# they come from the rank formula -- so they're absent.
 NEW_V1 = [
     ("Tanzee", "Flambelle", "Tanzee Ignis"),
     ("Woolipop", "Kikit", "Woolipop Terra"),
@@ -200,7 +197,7 @@ NEW_V1 = [
     ("Beakon", "Frostplume", "Beakon Cryst"),
     ("Rayhound", "Foxcicle", "Rayhound Cryst"),
     ("Needoll", "Prunelia", "Needoll Noct"),
-    ("Moldron", "Ice Reptyro", "Moldron Cryst"),
+    ("Moldron", "Reptyro Cryst", "Moldron Cryst"),
     ("Sibelyx", "Lapure", "Sibelyx Primo"),
     ("Skutlass", "Gobfin Ignis", "Skutlass Ignis"),
     ("Starryon", "Celesdir", "Starryon Primo"),

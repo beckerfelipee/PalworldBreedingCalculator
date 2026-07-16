@@ -15,8 +15,6 @@ import subprocess
 DISPLAY_OVERRIDES = {
     'Ribbuny': 'Ribunny',
     'Ribbuny Botan': 'Ribunny Botan',
-    'Reptyro Cryst': 'Ice Reptyro',
-    'Kingpaca Cryst': 'Ice Kingpaca',
 }
 
 # Gumoss and its reskin (PlantSlime / PlantSlime_Flower) share the localized
