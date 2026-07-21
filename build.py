@@ -26,7 +26,6 @@ TRANSLATIONS = {
         "search_header": "Search for Pal",
         "filter_label": "Filter by parent",
         "choose_option": "Choose an option",
-        "subscribe_toast": "Subscribe to {channel}'s YouTube Channel!",
         "gender_exception_toast": "In-game, this pair's result depends on parent gender (Katress Ignis or Wixen Noct). This calculator always shows Katress Ignis.",
         "whats_new_title": "🧬 New in 1.0: Mutation & Genetics",
         "whats_new_body": "**Mutation**: breeding now has a small chance to hatch a *mutated* egg, the same species, but with higher stats and a unique passive skill.\n\n**Genetic Recombination**: fuse genes from Legendary Pals to pass specific traits on to the offspring.\n\n**New cakes** change the odds. Deluxe Vegetable Cake raises mutation chance, Special Cake improves passive inheritance, and Vegetable Cake yields two eggs.\n\nℹ️ This calculator shows the **species** a pair produces. Mutation and genetics affect stats and passives, not which species hatches.",
@@ -46,7 +45,6 @@ TRANSLATIONS = {
         "search_header": "Buscar Pal",
         "filter_label": "Filtrar por progenitor",
         "choose_option": "Escolha uma opção",
-        "subscribe_toast": "Se inscreva no canal do {channel} no YouTube!",
         "gender_exception_toast": "No jogo, o resultado desse par depende do sexo dos pais (Katress Ignis ou Wixen Noct). Esta calculadora sempre mostra Katress Ignis.",
         "whats_new_title": "🧬 Novo na 1.0: Mutação e Genética",
         "whats_new_body": "**Mutação**: a reprodução agora tem uma pequena chance de chocar um ovo *mutante*, a mesma espécie, mas com atributos maiores e uma habilidade passiva única.\n\n**Recombinação Genética**: combine os genes de Pals Lendários para passar características específicas para o filhote.\n\n**Novos bolos** mudam as chances: o Bolo de Vegetais Deluxe aumenta a mutação, o Bolo Especial melhora a herança de passivas e o Bolo de Vegetais dá dois ovos.\n\nℹ️ Esta calculadora mostra a **espécie** que um par gera. Mutação e genética afetam atributos e passivas, não qual espécie nasce.",
@@ -66,7 +64,6 @@ TRANSLATIONS = {
         "search_header": "Buscar Pal",
         "filter_label": "Filtrar por progenitor",
         "choose_option": "Elige una opción",
-        "subscribe_toast": "¡Suscríbete al canal de YouTube de {channel}!",
         "gender_exception_toast": "En el juego, el resultado de esta pareja depende del sexo de los padres (Katress Ignis o Wixen Noct). Esta calculadora siempre muestra Katress Ignis.",
         "whats_new_title": "🧬 Nuevo en 1.0: Mutación y Genética",
         "whats_new_body": "**Mutación**: la cría ahora tiene una pequeña probabilidad de eclosionar un huevo *mutado*, la misma especie, pero con mejores estadísticas y una habilidad pasiva única.\n\n**Recombinación Genética**: fusiona genes de Pals Legendarios para transmitir rasgos específicos a la cría.\n\n**Nuevos pasteles** cambian las probabilidades: el Pastel de Verduras Deluxe aumenta la mutación, el Pastel Especial mejora la herencia de pasivas y el Pastel de Verduras da dos huevos.\n\nℹ️ Esta calculadora muestra la **especie** que produce una pareja. La mutación y la genética afectan estadísticas y pasivas, no qué especie nace.",
@@ -86,7 +83,6 @@ TRANSLATIONS = {
         "search_header": "Pal suchen",
         "filter_label": "Nach Elternteil filtern",
         "choose_option": "Option auswählen",
-        "subscribe_toast": "Abonniere {channel}s YouTube-Kanal!",
         "gender_exception_toast": "Im Spiel hängt das Ergebnis dieses Paares vom Geschlecht der Eltern ab (Katress Ignis oder Wixen Noct). Dieser Rechner zeigt immer Katress Ignis.",
         "whats_new_title": "🧬 Neu in 1.0: Mutation & Genetik",
         "whats_new_body": "**Mutation**: beim Züchten gibt es jetzt eine kleine Chance, ein *mutiertes* Ei auszubrüten, dieselbe Art, aber mit höheren Werten und einer einzigartigen passiven Fähigkeit.\n\n**Genetische Rekombination**: verschmelze Gene von legendären Pals, um bestimmte Merkmale an den Nachwuchs weiterzugeben.\n\n**Neue Kuchen** verändern die Chancen: der Deluxe-Gemüsekuchen erhöht die Mutation, der Spezialkuchen verbessert die Vererbung passiver Fähigkeiten und der Gemüsekuchen liefert zwei Eier.\n\nℹ️ Dieser Rechner zeigt die **Art**, die ein Paar hervorbringt. Mutation und Genetik beeinflussen Werte und passive Fähigkeiten, nicht welche Art schlüpft.",
@@ -106,7 +102,6 @@ TRANSLATIONS = {
         "search_header": "パルを検索",
         "filter_label": "親でフィルター",
         "choose_option": "オプションを選択",
-        "subscribe_toast": "{channel}のYouTubeチャンネルに登録しよう!",
         "gender_exception_toast": "ゲーム内では、この組み合わせの結果は親の性別によって変わります(Katress IgnisまたはWixen Noct)。この計算機では常にKatress Ignisを表示します。",
         "whats_new_title": "🧬 1.0の新要素:突然変異と遺伝",
         "whats_new_body": "**突然変異**:配合で低確率で*変異した*卵が孵るようになりました。同じ種族ですが、ステータスが高く、固有のパッシブスキルを持ちます。\n\n**遺伝子組み換え**:伝説のパルの遺伝子を組み合わせ、特定の特性を子に受け継がせます。\n\n**新しいケーキ**が確率を変えます。デラックス野菜ケーキは変異率を上げ、スペシャルケーキはパッシブの遺伝を高め、野菜ケーキは卵を2つ生みます。\n\nℹ️ この計算機は組み合わせが生む**種族**を表示します。突然変異と遺伝はステータスとパッシブに影響しますが、どの種族が孵るかは変えません。",
@@ -572,10 +567,6 @@ with st.container(key="calculator_area"):
     center3.code(pal3)
     image_with_wiki(pal3, place=center3)
 
-    # Easter egg (disabled): subscribe shout-out on Bushi + Penking.
-    # if pal1 == "Bushi" and pal2 == "Penking":
-    #     st.toast(t("subscribe_toast", channel="Gaubss"), icon='🔺')
-
     # Katress + Wixen's real result depends on parent gender, which this
     # calculator's single-outcome-per-pair data can't represent.
     if {pal1, pal2} == {"Katress", "Wixen"}:
@@ -590,10 +581,6 @@ with st.container(key="search_area"):
     l, s1, results_area = st.columns([7, 1, 37])
 
     pal4 = l.selectbox("pal4", pals_list, label_visibility="hidden")
-
-    # Easter egg (disabled): subscribe shout-out when searching Orserk.
-    # if pal4 == "Orserk":
-    #     st.toast(t("subscribe_toast", channel="Zackstabz"), icon='🔺')
 
     result = get_combinations(pal4)
 
