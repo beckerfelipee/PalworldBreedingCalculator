@@ -572,8 +572,9 @@ with st.container(key="calculator_area"):
     center3.code(pal3)
     image_with_wiki(pal3, place=center3)
 
-    if pal1 == "Bushi" and pal2 == "Penking":
-        st.toast(t("subscribe_toast", channel="Gaubss"), icon='🔺')
+    # Easter egg (disabled): subscribe shout-out on Bushi + Penking.
+    # if pal1 == "Bushi" and pal2 == "Penking":
+    #     st.toast(t("subscribe_toast", channel="Gaubss"), icon='🔺')
 
     # Katress + Wixen's real result depends on parent gender, which this
     # calculator's single-outcome-per-pair data can't represent.
@@ -590,8 +591,9 @@ with st.container(key="search_area"):
 
     pal4 = l.selectbox("pal4", pals_list, label_visibility="hidden")
 
-    if pal4 == "Orserk":
-        st.toast(t("subscribe_toast", channel="Zackstabz"), icon='🔺')
+    # Easter egg (disabled): subscribe shout-out when searching Orserk.
+    # if pal4 == "Orserk":
+    #     st.toast(t("subscribe_toast", channel="Zackstabz"), icon='🔺')
 
     result = get_combinations(pal4)
 
